@@ -36,7 +36,7 @@ def completion(new_message_text: str, settings_text: str = '', past_messages: li
 
 # Most of the code are coppied from https://qiita.com/sakasegawa/items/db2cff79bd14faf2c8e0
 
-with open("chat_history.txt", mode="r", encoding="utf_8") as f:
+with open("opt/chat_history.txt", mode="r", encoding="utf_8") as f:
   history = f.read()
 
 character_settings = """ツン子という少女を相手にした対話のシミュレーションを行います。
@@ -90,10 +90,10 @@ def chatInit():
         user_text = input("あなた: ")
         new_message, messages = completion(user_text, system_settings, messages)
         print("AI: ", new_message)
-    except:
-      print("Ending Conversation...")
+    except Exception as e:
+      print("Ending Conversation..." + str(e.message))
       chat_history, _ = completion(str(messages), abbreviation_settings, [])
-      with open("chat_history.txt", mode="w", encoding="utf_8") as f:
+      with open("opt/chat_history.txt", mode="w", encoding="utf_8") as f:
         f.write(chat_history)
       break
 
